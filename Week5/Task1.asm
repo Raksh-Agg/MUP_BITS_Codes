@@ -15,9 +15,12 @@ Yes:
     lea dx, str1
     mov ah, 09h
     int 21h
+    JMP EndFile
 No: 
     lea dx, str2
     mov ah, 09h
     int 21h
+EndFile:
+
 .exit
 end

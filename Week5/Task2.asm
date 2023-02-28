@@ -8,24 +8,19 @@
 .startup
     lea dx, maxval
     mov ah, 0ah
-    mov bl, 'a'
-    mov ch, ' '
-    mov bh, 20h
     int 21h
     mov cl, int1
+    mov ch, 32
+    mov al, '$'
     lea si, inpString
-X1: cmp [si], bl
-    JAE X2
-    cmp [si], ch
-    JE X2
-    ADD [si], bh
-X2: inc si
-    dec cl
+X1:
+    sub [si], ch
+    inc si
+    dec int1
     JNZ X1
-    mov bl, '$'
-    mov [si], bl
+    mov [si], al
     lea dx, inpString
-    mov ah,09h
+    mov ah, 09h
     int 21h
 .exit
 end
