@@ -1,15 +1,17 @@
 .model tiny 
 .data
-
-    ; 2 files
+    ; 3 files
     f1name db 'name.txt', 0
     handle1 dw ?
     f2name db 'id.txt', 0
     handle2 dw ?
     f3name db 'splice.txt', 0
     handle3 dw ?
-    part1 db 8 dup('$')
-    part2 db 5 dup('$')
+
+    part1 db 7 dup('$')
+    len1 db 7 ; Length of your name
+    part2 db 13 dup('$')
+    len2 db 13 ; Length of ID string
 
 .code
 .startup
@@ -24,7 +26,8 @@
     ; Reading file
     mov ah, 3fh
     mov bx, handle1
-    mov cx, 10h
+    mov cl, len1
+    mov ch, 00h
     lea dx, part1
     int 21h
 
@@ -42,7 +45,8 @@
     ; Reading file
     mov ah, 3fh
     mov bx, handle2
-    mov cx, 10h
+    mov cl, len2
+    mov ch, 00h
     lea dx, part2
     int 21h
 
@@ -60,10 +64,19 @@
     int 21h
     mov handle3, ax
 
+    ; Moving ID string to file 
+    mov ah, 40h
+    mov bx, handle3
+    mov cl, len2
+    mov ch, 00h
+    lea dx, part2
+    int 21h
+
     ; Moving string to file 
     mov ah, 40h
     mov bx, handle3
-    mov cx, 20
+    mov cl, len1
+    mov ch, 00h
     lea dx, part1
     int 21h
 
