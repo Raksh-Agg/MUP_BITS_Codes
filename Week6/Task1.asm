@@ -36,7 +36,8 @@
     ; Moving string to file 
     mov ah, 40h
     mov bx, handle
-    mov cx, act1
+    mov cl, act1
+    mov ch, 00h
     lea dx, inp1
     int 21h
 
